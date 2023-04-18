@@ -2,7 +2,7 @@
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
-  background-color: white;
+  background-color: bisque;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -15,16 +15,16 @@ input[type="text"].itemInput {
 
 button.addButton {
   padding: 5px;
-  background-color: #0070f3;
+  background-color: tomato;
   color: white;
-  border: 1px solid #0070f3;
+  border: 1px solid tomato;
   border-radius: 5px;
   cursor: pointer;
 }
 
 button.addButton:hover {
   background-color: #fff;
-  color: #0070f3;
+  color: tomato;
 }
 
 .todoItem {
