@@ -36,9 +36,9 @@ const TodoList = () => {
 
   const getTodos = async () => {
     // Firestore 쿼리를 만듭니다.
-    //const q = query(todoCollection);
+    // const q = query(todoCollection);
     // const q = query(collection(db, "todos"), where("user", "==", user.uid));
-    // const q = query(todoCollection, orderBy("datetime", "desc"));
+    // const q = query(todoCollection, orderBy("datetime", "asc"));
     if (!data?.user?.name) return;
 
     const q = query(
@@ -46,6 +46,7 @@ const TodoList = () => {
       where("userId", "==", data?.user?.id),
       orderBy("datetime", "asc")
     );
+
     // Firestore 에서 할 일 목록을 조회합니다.
     const results = await getDocs(q);
     const newTodos = [];
@@ -58,13 +59,12 @@ const TodoList = () => {
     });
 
     setTodos(newTodos);
-    console.log(newTodos);
   };
 
   useEffect(() => {
     getTodos();
-    //}, []);
   }, [data]);
+
   // addTodo 함수는 입력값을 이용하여 새로운 할 일을 목록에 추가하는 함수입니다.
   const addTodo = async () => {
     // 입력값이 비어있는 경우 함수를 종료합니다.
@@ -76,30 +76,21 @@ const TodoList = () => {
     //   completed: 완료 여부,
     // }
     // ...todos => {id: 1, text: "할일1", completed: false}, {id: 2, text: "할일2", completed: false}}, ..
-    const newTodo = {
-      userId: data?.user?.id,
-      text: input,
-      completed: false,
-      date: new Date().toDateString(), // 등록 날짜 정보를 추가합니다.
-    };
-    // Firestore 에 추가한 할 일을 저장합니다.
 
+    const datetime = new Date().toISOString();
+
+    // Firestore 에 추가한 할 일을 저장합니다.
     const docRef = await addDoc(todoCollection, {
       userId: data?.user?.id,
       text: input,
       completed: false,
-      date: new Date().toDateString(),
+      datetime: datetime,
     });
 
     // id 값을 Firestore 에 저장한 값으로 지정합니다.
     setTodos([
       ...todos,
-      {
-        id: docRef.id,
-        text: input,
-        completed: false,
-        date: new Date().toDateString(),
-      },
+      { id: docRef.id, text: input, datetime: datetime, completed: false },
     ]);
     setInput("");
   };
