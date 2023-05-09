@@ -58,6 +58,7 @@ const TodoList = () => {
     });
 
     setTodos(newTodos);
+    console.log(newTodos);
   };
 
   useEffect(() => {
@@ -76,6 +77,7 @@ const TodoList = () => {
     // }
     // ...todos => {id: 1, text: "할일1", completed: false}, {id: 2, text: "할일2", completed: false}}, ..
     const newTodo = {
+      userId: data?.user?.id,
       text: input,
       completed: false,
       date: new Date().toDateString(), // 등록 날짜 정보를 추가합니다.
