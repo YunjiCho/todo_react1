@@ -84,7 +84,7 @@ const TodoList = () => {
       userId: data?.user?.id,
       text: input,
       completed: false,
-      datetime: datetime,
+      //datetime: datetime,
     });
 
     // id 값을 Firestore 에 저장한 값으로 지정합니다.
